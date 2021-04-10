@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Container, Sidebar, Header, Content } from "rsuite";
+
+//components
+import Navbar from "./Components/Misc/Navbar/Navbar";
+
+//pages
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Login/Login";
+
+// import default style
+import "rsuite/dist/styles/rsuite-dark.css";
+
+const styles = {
+  padding: "1rem",
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <div className="show-container">
+          <Container style={{ height: "100vh" }}>
+            <Header style={styles}>
+              <Navbar />
+            </Header>
+            <Content style={styles}>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/login" component={Login} />
+              </Switch>
+            </Content>
+          </Container>
+        </div>
+      </Router>
     </div>
   );
 }
