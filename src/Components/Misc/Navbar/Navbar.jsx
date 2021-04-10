@@ -14,10 +14,9 @@ const CustomNav = ({ active, onSelect, ...props }) => {
         Home
       </Nav.Item>
       <Nav.Item eventKey="news" componentClass={Link} to="/news">
-        News
+        Light
       </Nav.Item>
-      <Nav.Item eventKey="solutions">Solutions</Nav.Item>
-      <Nav.Item eventKey="products">Products</Nav.Item>
+
       <Nav.Item eventKey="about">About</Nav.Item>
     </Nav>
   );

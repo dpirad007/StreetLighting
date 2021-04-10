@@ -93,12 +93,12 @@ const Home = () => {
   return (
     <div>
       <PanelGroup accordion bordered>
-        <Panel header="Panel 1" defaultExpanded>
+        <Panel header="Thane" defaultExpanded>
           <Grid fluid>
             <Row>
               <Col xs={24} sm={12}>
                 <LineChart
-                  width={500}
+                  width={700}
                   height={300}
                   data={data}
                   margin={{
@@ -125,7 +125,7 @@ const Home = () => {
 
               <Col xs={24} sm={12}>
                 <Table
-                  height={300}
+                  height={250}
                   data={tableData}
                   bordered
                   style={{ borderRadius: "0.5rem" }}
@@ -149,8 +149,8 @@ const Home = () => {
             </Row>
           </Grid>
         </Panel>
-        <Panel header="Panel 2">yolo</Panel>
-        <Panel header="Panel 3">folo</Panel>
+        <Panel header="Pen">yolo</Panel>
+        <Panel header="Vashi">folo</Panel>
       </PanelGroup>
     </div>
   );
