@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Container, Sidebar, Header, Content } from "rsuite";
+import { Container, Header, Content } from "rsuite";
 
 //components
 import Navbar from "./Components/Misc/Navbar/Navbar";

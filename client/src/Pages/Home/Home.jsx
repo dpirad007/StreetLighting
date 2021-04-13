@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PanelGroup, Panel, Grid, Row, Col, Table } from "rsuite";
 import {
   LineChart,
