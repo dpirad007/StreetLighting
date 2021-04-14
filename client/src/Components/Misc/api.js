@@ -1,1 +1,1 @@
-export const prefix = "localhost:5000";
+export const prefix = "http://localhost:5000";

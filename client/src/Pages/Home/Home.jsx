@@ -13,49 +13,6 @@ import {
 import { prefix } from "../../Components/Misc/api";
 const { Column, HeaderCell, Cell } = Table;
 
-const data = [
-  {
-    id: "1",
-    watts: 1000,
-  },
-  {
-    id: "2",
-    watts: 4000,
-  },
-  {
-    id: "3",
-    watts: 2000,
-  },
-  {
-    id: "4",
-    watts: 3000,
-  },
-  {
-    id: "5",
-    watts: 4000,
-  },
-  {
-    id: "6",
-    watts: 1000,
-  },
-  {
-    id: "7",
-    watts: 2000,
-  },
-  {
-    id: "8",
-    watts: 4000,
-  },
-  {
-    id: "9",
-    watts: 3000,
-  },
-  {
-    id: "10",
-    watts: 1000,
-  },
-];
-
 const tableData = [
   {
     id: 1,
@@ -93,19 +50,77 @@ const Home = () => {
   const [allLights, setAllLights] = useState([]);
 
   useEffect(() => {
-    console.log(prefix);
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(allLights);
-  }, [allLights]);
-
   const fetchData = async () => {
     const data = await axios.get(`${prefix}/lights`);
-    console.log(data);
-    setAllLights(data);
+    console.log(data.data);
+    setAllLights(data.data);
   };
+  let resChart = null;
+  if (allLights.length) {
+    resChart = (
+      <LineChart
+        width={700}
+        height={300}
+        data={allLights}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="id" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line
+          type="monotone"
+          dataKey="watts"
+          stroke="#8884d8"
+          activeDot={{ r: 8 }}
+        />
+      </LineChart>
+    );
+  }
+
+  let resTable = null;
+  if (allLights.length) {
+    resTable = (
+      <Table
+        height={250}
+        data={allLights}
+        bordered
+        style={{ borderRadius: "0.5rem" }}
+      >
+        <Column width={70} align="center" fixed>
+          <HeaderCell>Light ID</HeaderCell>
+          <Cell dataKey="_id" />
+        </Column>
+
+        <Column width={100} fixed>
+          <HeaderCell>Location</HeaderCell>
+          <Cell dataKey="location" />
+        </Column>
+
+        <Column width={100}>
+          <HeaderCell>Status</HeaderCell>
+          <Cell dataKey="status" />
+        </Column>
+        <Column width={100}>
+          <HeaderCell>Consumption</HeaderCell>
+          <Cell dataKey="watts" />
+        </Column>
+        <Column width={200}>
+          <HeaderCell>Updated At</HeaderCell>
+          <Cell dataKey="updatedAt" />
+        </Column>
+      </Table>
+    );
+  }
 
   return (
     <div>
@@ -114,53 +129,11 @@ const Home = () => {
           <Grid fluid>
             <Row>
               <Col xs={24} sm={12}>
-                <LineChart
-                  width={700}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="id" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="watts"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                </LineChart>
+                {resChart}
               </Col>
 
               <Col xs={24} sm={12}>
-                <Table
-                  height={250}
-                  data={tableData}
-                  bordered
-                  style={{ borderRadius: "0.5rem" }}
-                >
-                  <Column width={70} align="center" fixed>
-                    <HeaderCell>Light ID</HeaderCell>
-                    <Cell dataKey="id" />
-                  </Column>
-
-                  <Column fixed>
-                    <HeaderCell>Location</HeaderCell>
-                    <Cell dataKey="firstName" />
-                  </Column>
-
-                  <Column>
-                    <HeaderCell>Status</HeaderCell>
-                    <Cell dataKey="lastName" />
-                  </Column>
-                </Table>
+                {resTable}
               </Col>
             </Row>
           </Grid>

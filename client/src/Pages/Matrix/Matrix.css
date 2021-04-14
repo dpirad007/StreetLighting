@@ -17,9 +17,10 @@
 }
 
 .light-on{
-    background-color: green;
+    background-color: rgb(77, 255, 77);
+
 }
 
 .light-disable{
-    background-color: silver;
+    background-color:black;
 }
