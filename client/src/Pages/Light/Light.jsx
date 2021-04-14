@@ -5,6 +5,8 @@ import {
   RandomizeNodePositions,
   RelativeSize,
   LoadJSON,
+  NOverlap,
+  DragNodes,
 } from "react-sigma";
 
 const Light = () => {
@@ -12,9 +14,7 @@ const Light = () => {
     <Sigma
       settings={{
         batchEdgesDrawing: true,
-        defaultLabelColor: "#777",
         defaultLabelSize: 8,
-        defaultNodeColor: "#3388AA",
         drawEdgeLabels: false,
         drawEdges: true,
         hoverFontStyle: "text-size: 11",
@@ -26,8 +26,24 @@ const Light = () => {
       }}
     >
       <LoadJSON path="./Geo.json">
-        <RelativeSize initialSize={15} />
         <RandomizeNodePositions />
+        <NOverlap
+          duration={3000}
+          easing="quadraticInOut"
+          gridSize={20}
+          maxIterations={100}
+          nodeMargin={10}
+          scaleNodes={4}
+          speed={10}
+        />
+        <RelativeSize initialSize={15} />
+
+        <DragNodes
+          onDrag={function noRefCheck() {}}
+          onDragend={function noRefCheck() {}}
+          onDrop={function noRefCheck() {}}
+          onStartdrag={function noRefCheck() {}}
+        />
       </LoadJSON>
     </Sigma>
   );

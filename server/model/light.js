@@ -13,6 +13,9 @@ const LightSchema = new Schema(
       type: Number,
       enum: [0, 1, 2],
     },
+    watts: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

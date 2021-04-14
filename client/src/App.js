@@ -9,6 +9,7 @@ import Navbar from "./Components/Misc/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Light from "./Pages/Light/Light";
+import Matrix from "./Pages/Matrix/Matrix";
 
 // import default style
 import "rsuite/dist/styles/rsuite-dark.css";
@@ -31,6 +32,7 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/light" component={Light} />
+                <Route exact path="/matrix" component={Matrix} />
               </Switch>
             </Content>
           </Container>

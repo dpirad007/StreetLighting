@@ -1,0 +1,25 @@
+.row-main{
+    display: grid;
+    grid-template-columns: repeat(50,1.5rem);
+}
+
+.col-main{
+    display: grid;
+    justify-content: center;
+}
+
+.light-off{
+    background-color: red;
+}
+
+.light-dim{
+    background-color: turquoise;
+}
+
+.light-on{
+    background-color: green;
+}
+
+.light-disable{
+    background-color: silver;
+}

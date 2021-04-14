@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { PanelGroup, Panel, Grid, Row, Col, Table } from "rsuite";
 import {
   LineChart,
@@ -9,50 +10,49 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { prefix } from "../../Components/Misc/api";
 const { Column, HeaderCell, Cell } = Table;
 
 const data = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    id: "1",
+    watts: 1000,
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    id: "2",
+    watts: 4000,
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    id: "3",
+    watts: 2000,
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    id: "4",
+    watts: 3000,
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    id: "5",
+    watts: 4000,
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    id: "6",
+    watts: 1000,
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    id: "7",
+    watts: 2000,
+  },
+  {
+    id: "8",
+    watts: 4000,
+  },
+  {
+    id: "9",
+    watts: 3000,
+  },
+  {
+    id: "10",
+    watts: 1000,
   },
 ];
 
@@ -90,6 +90,23 @@ const tableData = [
 ];
 
 const Home = () => {
+  const [allLights, setAllLights] = useState([]);
+
+  useEffect(() => {
+    console.log(prefix);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(allLights);
+  }, [allLights]);
+
+  const fetchData = async () => {
+    const data = await axios.get(`${prefix}/lights`);
+    console.log(data);
+    setAllLights(data);
+  };
+
   return (
     <div>
       <PanelGroup accordion bordered>
@@ -109,17 +126,16 @@ const Home = () => {
                   }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <XAxis dataKey="id" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
                   <Line
                     type="monotone"
-                    dataKey="pv"
+                    dataKey="watts"
                     stroke="#8884d8"
                     activeDot={{ r: 8 }}
                   />
-                  <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                 </LineChart>
               </Col>
 
