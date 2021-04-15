@@ -1,6 +1,4 @@
 const express = require("express");
-const { updateOne } = require("../model/light");
-const light = require("../model/light");
 const Light = require("../model/light");
 
 const router = express.Router();

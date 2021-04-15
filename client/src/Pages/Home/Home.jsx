@@ -13,39 +13,6 @@ import {
 import { prefix } from "../../Components/Misc/api";
 const { Column, HeaderCell, Cell } = Table;
 
-const tableData = [
-  {
-    id: 1,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-  {
-    id: 2,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-  {
-    id: 3,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-  {
-    id: 4,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-  {
-    id: 5,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-  {
-    id: 6,
-    firstName: "Dion",
-    lastName: "pinto",
-  },
-];
-
 const Home = () => {
   const [allLights, setAllLights] = useState([]);
 
@@ -138,8 +105,6 @@ const Home = () => {
             </Row>
           </Grid>
         </Panel>
-        <Panel header="Pen">yolo</Panel>
-        <Panel header="Vashi">folo</Panel>
       </PanelGroup>
     </div>
   );

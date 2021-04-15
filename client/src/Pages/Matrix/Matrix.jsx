@@ -1,32 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { prefix } from "../../Components/Misc/api";
+import axios from "axios";
 import "./Matrix.css";
-
-const ROW = 23;
-const COL = 50;
-
-const genData = () => {
-  let data = [];
-  for (let i = 0; i < ROW; i++) {
-    let row = [];
-    for (let j = 0; j < COL; j++) {
-      if (i === 10 && j > 15 && j < 35) {
-        row.push({
-          i: i,
-          j: j,
-          status: 0,
-        });
-      } else {
-        row.push({
-          i: i,
-          j: j,
-          status: 3,
-        });
-      }
-    }
-    data.push(row);
-  }
-  return data;
-};
 
 const lightStyle = {
   margin: "0.5rem",
@@ -52,13 +27,37 @@ const Light = ({ status = 1 }) => {
 };
 
 const Matrix = () => {
-  const grid = genData();
+  let initial = [];
+  for (let i = 0; i < 23; i++) {
+    initial[i] = [];
+    for (let j = 0; j < 50; j++) {
+      initial[i][j] = 3;
+    }
+  }
+
+  const [matData, setMatData] = useState(initial);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await axios.get(`${prefix}/lights`);
+      let copy = [...matData];
+
+      const lightData = data.data;
+      for (let i = 0; i < lightData.length; i++) {
+        copy[lightData[i].i][lightData[i].j] = lightData[i].status;
+      }
+      setMatData(copy);
+    };
+    getData();
+  }, [matData]);
 
   let render = [];
-  for (let i = 0; i < ROW; i++) {
+  if (matData.length) {
     let row = [];
-    for (let j = 0; j < COL; j++) {
-      row.push(<Light status={grid[i][j].status} />);
+    for (let i = 0; i < matData.length; i++) {
+      for (let j = 0; j < matData[i].length; j++) {
+        row.push(<Light status={matData[i][j]} />);
+      }
     }
     render.push(<div className="row-main">{row}</div>);
   }
