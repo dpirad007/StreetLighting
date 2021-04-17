@@ -40,18 +40,20 @@ const Matrix = () => {
   }
 
   const [matData, setMatData] = useState(initial);
-  const [selectedCluster, setSelectedCluster] = useState();
+  const [selectedCluster, setSelectedCluster] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await axios.get(`${prefix}/lights/${selectedCluster}`);
-      let copy = JSON.parse(JSON.stringify(initial));
+      if (selectedCluster) {
+        const data = await axios.get(`${prefix}/lights/${selectedCluster}`);
+        let copy = JSON.parse(JSON.stringify(initial));
 
-      const lightData = data.data;
-      for (let i = 0; i < lightData.length; i++) {
-        copy[lightData[i].i][lightData[i].j] = lightData[i].status;
+        const lightData = data.data;
+        for (let i = 0; i < lightData.length; i++) {
+          copy[lightData[i].i][lightData[i].j] = lightData[i].status;
+        }
+        setMatData(copy);
       }
-      setMatData(copy);
     };
     getData();
     // eslint-disable-next-line
@@ -70,18 +72,27 @@ const Matrix = () => {
 
   return (
     <div className="col-main">
-      <Dropdown
-        title="Select Cluster"
-        onSelect={(eventKey) => {
-          setSelectedCluster(eventKey);
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
         }}
       >
-        {clusterList
-          ? clusterList.map((name) => (
-              <Dropdown.Item eventKey={name}>{name}</Dropdown.Item>
-            ))
-          : null}
-      </Dropdown>
+        <Dropdown
+          title="Select Cluster"
+          onSelect={(eventKey) => {
+            setSelectedCluster(eventKey);
+          }}
+        >
+          {clusterList
+            ? clusterList.map((name) => (
+                <Dropdown.Item eventKey={name}>{name}</Dropdown.Item>
+              ))
+            : null}
+        </Dropdown>
+        <h4>{selectedCluster}</h4>
+      </div>
+
       {render}
     </div>
   );
