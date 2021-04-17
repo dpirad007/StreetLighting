@@ -90,7 +90,7 @@ const Matrix = () => {
               ))
             : null}
         </Dropdown>
-        <h4>{selectedCluster}</h4>
+        <h4 style={{ margin: "0 1rem" }}>{selectedCluster}</h4>
       </div>
 
       {render}
