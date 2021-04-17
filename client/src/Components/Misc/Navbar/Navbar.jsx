@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Nav, Icon } from "rsuite";
 import { Link } from "react-router-dom";
-import { navKeyContext } from "../../../clusterContext";
+import { navKeyContext } from "../../../context";
 
 const CustomNav = ({ active, onSelect, ...props }) => {
   return (

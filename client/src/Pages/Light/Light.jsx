@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { navKeyContext } from "../../clusterContext";
+import { navKeyContext } from "../../context";
 import ReactFlow from "react-flow-renderer";
 import "./Light.css";
 

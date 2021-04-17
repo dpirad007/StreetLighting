@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { clusterContext, navKeyContext } from "../../clusterContext";
+import { clusterContext, navKeyContext } from "../../context";
 import { prefix } from "../../Components/Misc/api";
-import { Dropdown } from "rsuite";
+import { Dropdown, Popover, Whisper } from "rsuite";
 import axios from "axios";
 import "./Matrix.css";
 
@@ -14,7 +14,16 @@ const lightStyle = {
   cursor: "pointer",
 };
 
-const Light = ({ status = 1 }) => {
+const Speaker = ({ status, location, ...props }) => {
+  return (
+    <Popover title="Info" {...props}>
+      <p>{location}</p>
+      <p>Status: {status}</p>
+    </Popover>
+  );
+};
+
+const Light = ({ status, location }) => {
   let val = null;
   if (status === 0) {
     val = "light-off";
@@ -25,7 +34,14 @@ const Light = ({ status = 1 }) => {
   } else {
     val = "light-disable";
   }
-  return <div style={lightStyle} className={val} />;
+  return (
+    <Whisper
+      trigger="click"
+      speaker={<Speaker status={status} location={location} />}
+    >
+      <div style={lightStyle} className={val} />
+    </Whisper>
+  );
 };
 
 const Matrix = () => {
@@ -37,7 +53,7 @@ const Matrix = () => {
   for (let i = 0; i < 22; i++) {
     initial[i] = [];
     for (let j = 0; j < 50; j++) {
-      initial[i][j] = 3;
+      initial[i][j] = [3, "BLANK"];
     }
   }
 
@@ -52,7 +68,10 @@ const Matrix = () => {
 
         const lightData = data.data;
         for (let i = 0; i < lightData.length; i++) {
-          copy[lightData[i].i][lightData[i].j] = lightData[i].status;
+          copy[lightData[i].i][lightData[i].j] = [
+            lightData[i].status,
+            lightData[i].location,
+          ];
         }
         setMatData(copy);
       }
@@ -66,7 +85,9 @@ const Matrix = () => {
     let row = [];
     for (let i = 0; i < matData.length; i++) {
       for (let j = 0; j < matData[i].length; j++) {
-        row.push(<Light status={matData[i][j]} />);
+        row.push(
+          <Light status={matData[i][j][0]} location={matData[i][j][1]} />
+        );
       }
     }
     render.push(<div className="row-main">{row}</div>);

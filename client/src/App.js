@@ -15,7 +15,7 @@ import Light from "./Pages/Light/Light";
 import Matrix from "./Pages/Matrix/Matrix";
 
 //context
-import { clusterContext, navKeyContext } from "./clusterContext.jsx";
+import { clusterContext, navKeyContext } from "./context.jsx";
 
 // import default style
 import "rsuite/dist/styles/rsuite-dark.css";
