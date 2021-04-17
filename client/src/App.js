@@ -15,7 +15,7 @@ import Light from "./Pages/Light/Light";
 import Matrix from "./Pages/Matrix/Matrix";
 
 //context
-import { clusterContext } from "./clusterContext.jsx";
+import { clusterContext, navKeyContext } from "./clusterContext.jsx";
 
 // import default style
 import "rsuite/dist/styles/rsuite-dark.css";
@@ -26,6 +26,7 @@ const styles = {
 
 function App() {
   const [clusterList, setclusterList] = useState();
+  const [navbarKey, setNavbarKey] = useState();
   useEffect(() => {
     const fetchClusterList = async () => {
       const data = await axios.get(`${prefix}/clusterswl`);
@@ -37,25 +38,27 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <clusterContext.Provider value={{ clusterList, setclusterList }}>
-        <Router>
-          <div className="show-container">
-            <Container style={{ height: "100vh" }}>
-              <Header style={styles}>
-                <Navbar />
-              </Header>
-              <Content style={styles}>
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/light" component={Light} />
-                  <Route exact path="/matrix" component={Matrix} />
-                </Switch>
-              </Content>
-            </Container>
-          </div>
-        </Router>
-      </clusterContext.Provider>
+      <navKeyContext.Provider value={{ navbarKey, setNavbarKey }}>
+        <clusterContext.Provider value={{ clusterList, setclusterList }}>
+          <Router>
+            <div className="show-container">
+              <Container style={{ height: "100vh" }}>
+                <Header style={styles}>
+                  <Navbar />
+                </Header>
+                <Content style={styles}>
+                  <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/light" component={Light} />
+                    <Route exact path="/matrix" component={Matrix} />
+                  </Switch>
+                </Content>
+              </Container>
+            </div>
+          </Router>
+        </clusterContext.Provider>
+      </navKeyContext.Provider>
     </div>
   );
 }

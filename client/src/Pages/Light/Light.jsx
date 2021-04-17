@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { navKeyContext } from "../../clusterContext";
 import ReactFlow from "react-flow-renderer";
 import "./Light.css";
 
@@ -31,6 +32,8 @@ const style = {
 };
 
 const Light = () => {
+  const { setNavbarKey } = useContext(navKeyContext);
+  setNavbarKey("light");
   return (
     <div style={style}>
       <ReactFlow elements={elements} />

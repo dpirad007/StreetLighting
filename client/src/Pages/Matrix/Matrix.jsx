@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { clusterContext } from "../../clusterContext";
+import { clusterContext, navKeyContext } from "../../clusterContext";
 import { prefix } from "../../Components/Misc/api";
 import { Dropdown } from "rsuite";
 import axios from "axios";
@@ -29,6 +29,8 @@ const Light = ({ status = 1 }) => {
 };
 
 const Matrix = () => {
+  const { setNavbarKey } = useContext(navKeyContext);
+  setNavbarKey("matrix");
   const { clusterList } = useContext(clusterContext);
 
   let initial = [];

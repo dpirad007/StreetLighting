@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Nav, Icon } from "rsuite";
 import { Link } from "react-router-dom";
+import { navKeyContext } from "../../../clusterContext";
 
 const CustomNav = ({ active, onSelect, ...props }) => {
   return (
@@ -24,13 +25,9 @@ const CustomNav = ({ active, onSelect, ...props }) => {
 };
 
 const Navbar = () => {
-  const [active, setActive] = useState();
-  const handleSelect = (activeKey) => {
-    setActive(activeKey);
-  };
-  return (
-    <CustomNav appearance="tabs" active={active} onSelect={handleSelect} />
-  );
+  const { navbarKey } = useContext(navKeyContext);
+
+  return <CustomNav appearance="tabs" active={navbarKey} />;
 };
 
 export default Navbar;

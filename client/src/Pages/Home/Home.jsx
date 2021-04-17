@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { navKeyContext } from "../../clusterContext";
 import axios from "axios";
 import { Notification } from "rsuite";
 import { PanelGroup, Panel, Grid, Row, Col, Table } from "rsuite";
@@ -29,6 +30,8 @@ const open = (rowData) => {
 };
 
 const Home = () => {
+  const { setNavbarKey } = useContext(navKeyContext);
+  setNavbarKey("home");
   const [allClusters, setAllClusters] = useState([]);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const Home = () => {
     <div>
       <PanelGroup accordion bordered>
         {allClusters.map((obj) => (
-          <Panel header={obj.name} defaultExpanded>
+          <Panel header={obj.name}>
             <Grid fluid>
               <Row>
                 <Col xs={24} sm={12}>
