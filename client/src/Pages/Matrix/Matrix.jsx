@@ -49,7 +49,7 @@ const Matrix = () => {
       setMatData(copy);
     };
     getData();
-  }, [matData]);
+  }, []);
 
   let render = [];
   if (matData.length) {

@@ -1,51 +1,40 @@
 import React from "react";
+import ReactFlow from "react-flow-renderer";
+import "./Light.css";
 
-import {
-  Sigma,
-  RandomizeNodePositions,
-  RelativeSize,
-  LoadJSON,
-  NOverlap,
-  DragNodes,
-} from "react-sigma";
+const elements = [
+  {
+    id: "1",
+    data: { label: "ID 1" },
+    position: { x: 250, y: 25 },
+  },
+
+  {
+    id: "2",
+    data: { label: "ID 2" },
+    position: { x: 100, y: 125 },
+  },
+  {
+    id: "3",
+
+    data: { label: "ID 3" },
+    position: { x: 250, y: 250 },
+  },
+
+  { id: "e1-2", source: "1", target: "2", animated: true },
+  { id: "e2-3", source: "2", target: "3", animated: true },
+];
+
+const style = {
+  height: "100%",
+  width: "100%",
+};
 
 const Light = () => {
   return (
-    <Sigma
-      settings={{
-        batchEdgesDrawing: true,
-        defaultLabelSize: 8,
-        drawEdgeLabels: false,
-        drawEdges: true,
-        hoverFontStyle: "text-size: 11",
-        labelThreshold: 12,
-      }}
-      style={{
-        height: "100%",
-        maxWidth: "inherit",
-      }}
-    >
-      <LoadJSON path="./Geo.json">
-        <RandomizeNodePositions />
-        <NOverlap
-          duration={3000}
-          easing="quadraticInOut"
-          gridSize={20}
-          maxIterations={100}
-          nodeMargin={10}
-          scaleNodes={4}
-          speed={10}
-        />
-        <RelativeSize initialSize={15} />
-
-        <DragNodes
-          onDrag={function noRefCheck() {}}
-          onDragend={function noRefCheck() {}}
-          onDrop={function noRefCheck() {}}
-          onStartdrag={function noRefCheck() {}}
-        />
-      </LoadJSON>
-    </Sigma>
+    <div style={style}>
+      <ReactFlow elements={elements} />
+    </div>
   );
 };
 export default Light;

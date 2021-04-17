@@ -4,7 +4,17 @@ const Schema = mongoose.Schema;
 
 const LightSchema = new Schema(
   {
+    cluster: {
+      type: Schema.ObjectId,
+      ref: "ClusterModel",
+    },
+    id: {
+      type: Number,
+      required: true,
+      uniquie: true,
+    },
     location: {
+      unique: true,
       type: String,
       required: true,
     },

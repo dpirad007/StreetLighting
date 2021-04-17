@@ -1,0 +1,7 @@
+.react-flow__node{
+    color: white;
+    height: 40px;
+    width: 60px;
+    border-radius: 1rem;
+    background: rgb(93, 248, 233);
+}
