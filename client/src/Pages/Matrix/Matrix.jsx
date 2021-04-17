@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { clusterContext } from "../../clusterContext";
 import { prefix } from "../../Components/Misc/api";
+import { Dropdown } from "rsuite";
 import axios from "axios";
 import "./Matrix.css";
 
@@ -27,8 +29,10 @@ const Light = ({ status = 1 }) => {
 };
 
 const Matrix = () => {
+  const { clusterList } = useContext(clusterContext);
+
   let initial = [];
-  for (let i = 0; i < 23; i++) {
+  for (let i = 0; i < 22; i++) {
     initial[i] = [];
     for (let j = 0; j < 50; j++) {
       initial[i][j] = 3;
@@ -36,11 +40,12 @@ const Matrix = () => {
   }
 
   const [matData, setMatData] = useState(initial);
+  const [selectedCluster, setSelectedCluster] = useState();
 
   useEffect(() => {
     const getData = async () => {
-      const data = await axios.get(`${prefix}/lights`);
-      let copy = [...matData];
+      const data = await axios.get(`${prefix}/lights/${selectedCluster}`);
+      let copy = JSON.parse(JSON.stringify(initial));
 
       const lightData = data.data;
       for (let i = 0; i < lightData.length; i++) {
@@ -49,7 +54,8 @@ const Matrix = () => {
       setMatData(copy);
     };
     getData();
-  }, []);
+    // eslint-disable-next-line
+  }, [selectedCluster]);
 
   let render = [];
   if (matData.length) {
@@ -62,7 +68,23 @@ const Matrix = () => {
     render.push(<div className="row-main">{row}</div>);
   }
 
-  return <div className="col-main">{render}</div>;
+  return (
+    <div className="col-main">
+      <Dropdown
+        title="Select Cluster"
+        onSelect={(eventKey) => {
+          setSelectedCluster(eventKey);
+        }}
+      >
+        {clusterList
+          ? clusterList.map((name) => (
+              <Dropdown.Item eventKey={name}>{name}</Dropdown.Item>
+            ))
+          : null}
+      </Dropdown>
+      {render}
+    </div>
+  );
 };
 
 export default Matrix;
