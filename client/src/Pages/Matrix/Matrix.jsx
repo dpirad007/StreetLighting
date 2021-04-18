@@ -34,7 +34,9 @@ const Light = ({ status, location }) => {
   } else {
     val = "light-disable";
   }
-  return (
+  return status === 3 ? (
+    <div style={lightStyle} className={val} />
+  ) : (
     <Whisper
       trigger="click"
       speaker={<Speaker status={status} location={location} />}
