@@ -5,6 +5,9 @@ import { Dropdown, Popover, Whisper } from "rsuite";
 import axios from "axios";
 import "./Matrix.css";
 
+const ROW = 22;
+const COL = 50;
+
 const lightStyle = {
   margin: "0.5rem",
   height: "10px",
@@ -52,10 +55,10 @@ const Matrix = () => {
   const { clusterList } = useContext(clusterContext);
 
   let initial = [];
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < ROW; i++) {
     initial[i] = [];
-    for (let j = 0; j < 50; j++) {
-      initial[i][j] = [3, "BLANK"];
+    for (let j = 0; j < COL; j++) {
+      initial[i][j] = [3, ""];
     }
   }
 
@@ -70,10 +73,12 @@ const Matrix = () => {
 
         const lightData = data.data;
         for (let i = 0; i < lightData.length; i++) {
-          copy[lightData[i].i][lightData[i].j] = [
-            lightData[i].status,
-            lightData[i].location,
-          ];
+          if (lightData[i].i < ROW && lightData[i].j < COL) {
+            copy[lightData[i].i][lightData[i].j] = [
+              lightData[i].status,
+              lightData[i].location,
+            ];
+          }
         }
         setMatData(copy);
       }

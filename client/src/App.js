@@ -13,6 +13,7 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Light from "./Pages/Light/Light";
 import Matrix from "./Pages/Matrix/Matrix";
+import Records from "./Pages/Records/Records";
 
 //context
 import { clusterContext, navKeyContext } from "./context.jsx";
@@ -52,6 +53,7 @@ function App() {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/light" component={Light} />
                     <Route exact path="/matrix" component={Matrix} />
+                    <Route exact path="/records/:id" component={Records} />
                   </Switch>
                 </Content>
               </Container>

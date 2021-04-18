@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { navKeyContext } from "../../context";
 import axios from "axios";
 import { Notification, Loader } from "rsuite";
@@ -93,16 +94,16 @@ const Home = () => {
                         <Cell dataKey="id" />
                       </Column>
 
-                      <Column width={100} fixed>
+                      <Column fixed>
                         <HeaderCell>Location</HeaderCell>
                         <Cell dataKey="location" />
                       </Column>
 
-                      <Column width={100}>
+                      <Column width={60} align="center">
                         <HeaderCell>Status</HeaderCell>
                         <Cell dataKey="status" />
                       </Column>
-                      <Column width={100}>
+                      <Column align="center">
                         <HeaderCell>Consumption</HeaderCell>
                         <Cell dataKey="watts" />
                       </Column>
@@ -125,6 +126,27 @@ const Home = () => {
                                 >
                                   Show
                                 </div>
+                              </span>
+                            );
+                          }}
+                        </Cell>
+                      </Column>
+                      <Column align="center">
+                        <HeaderCell>Records</HeaderCell>
+                        <Cell>
+                          {(rowData) => {
+                            return (
+                              <span>
+                                <Link
+                                  to={`/records/${rowData._id}`}
+                                  style={{
+                                    cursor: "pointer",
+                                    textDecoration: "none",
+                                    color: "rgb(93, 248, 233)",
+                                  }}
+                                >
+                                  Records
+                                </Link>
                               </span>
                             );
                           }}
