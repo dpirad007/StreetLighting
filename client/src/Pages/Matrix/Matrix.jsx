@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { clusterContext, navKeyContext } from "../../context";
 import { prefix } from "../../Components/Misc/api";
 import { Dropdown, Popover, Whisper } from "rsuite";
@@ -17,16 +18,26 @@ const lightStyle = {
   cursor: "pointer",
 };
 
-const Speaker = ({ status, location, ...props }) => {
+const Speaker = ({ status, location, id, ...props }) => {
   return (
     <Popover title="Info" {...props}>
       <p>{location}</p>
       <p>Status: {status}</p>
+      <Link
+        to={`/records/${id}`}
+        style={{
+          cursor: "pointer",
+          textDecoration: "none",
+          color: "rgb(93, 248, 233)",
+        }}
+      >
+        Records
+      </Link>
     </Popover>
   );
 };
 
-const Light = ({ status, location }) => {
+const Light = ({ status, location, id }) => {
   let val = null;
   if (status === 0) {
     val = "light-off";
@@ -42,7 +53,7 @@ const Light = ({ status, location }) => {
   ) : (
     <Whisper
       trigger="click"
-      speaker={<Speaker status={status} location={location} />}
+      speaker={<Speaker status={status} location={location} id={id} />}
     >
       <div style={lightStyle} className={val} />
     </Whisper>
@@ -58,7 +69,7 @@ const Matrix = () => {
   for (let i = 0; i < ROW; i++) {
     initial[i] = [];
     for (let j = 0; j < COL; j++) {
-      initial[i][j] = [3, ""];
+      initial[i][j] = [3, "", 0];
     }
   }
 
@@ -77,6 +88,7 @@ const Matrix = () => {
             copy[lightData[i].i][lightData[i].j] = [
               lightData[i].status,
               lightData[i].location,
+              lightData[i]._id,
             ];
           }
         }
@@ -93,7 +105,11 @@ const Matrix = () => {
     for (let i = 0; i < matData.length; i++) {
       for (let j = 0; j < matData[i].length; j++) {
         row.push(
-          <Light status={matData[i][j][0]} location={matData[i][j][1]} />
+          <Light
+            status={matData[i][j][0]}
+            location={matData[i][j][1]}
+            id={matData[i][j][2]}
+          />
         );
       }
     }

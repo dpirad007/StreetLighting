@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.post("/dv-ar", async (req, res) => {
   const lightId = req.body.lightId;
-  const rec = req.body.record;
+  let rec = req.body.record;
+  const date = new Date();
+  rec = rec + "," + date;
   try {
     const light = await Light.findOne({ id: lightId });
     const recordr = new Records({
@@ -25,7 +27,9 @@ router.post("/dv-ar", async (req, res) => {
 
 router.post("/recordsUpdate", async (req, res) => {
   const lightId = req.body.lightId;
-  const rec = req.body.record;
+  let rec = req.body.record;
+  const date = new Date();
+  rec = rec + "," + date;
 
   try {
     const light = await Light.findOne({ id: lightId });

@@ -14,9 +14,9 @@ const CustomNav = ({ active, onSelect, ...props }) => {
       >
         Home
       </Nav.Item>
-      <Nav.Item eventKey="light" componentClass={Link} to="/light">
+      {/* <Nav.Item eventKey="light" componentClass={Link} to="/light">
         Light
-      </Nav.Item>
+      </Nav.Item> */}
       <Nav.Item eventKey="matrix" componentClass={Link} to="/matrix">
         Matrix
       </Nav.Item>
