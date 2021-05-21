@@ -21,6 +21,10 @@
 
 }
 
+.light-faulty{
+    background-color: darkgoldenrod;
+}
+
 .light-disable{
     background-color:black;
 }

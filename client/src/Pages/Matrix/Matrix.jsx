@@ -45,6 +45,8 @@ const Light = ({ status, location, id }) => {
     val = "light-dim";
   } else if (status === 2) {
     val = "light-on";
+  } else if (status === 4) {
+    val = "light-faulty";
   } else {
     val = "light-disable";
   }
